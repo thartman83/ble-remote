@@ -74,8 +74,6 @@ esp_err_t wifi_start_ap() {
   ESP_WIFI_DEBUG("Turning wifi on");
   ESP_ERROR_CHECK(esp_wifi_start());
 
-  //http_app_start();
-
   return ESP_OK;
 }
 
@@ -100,8 +98,6 @@ void wifi_task_loop( void * params) {
 
   // for the moment we are going to start in ap mode
   wifi_start_ap();
-
-
 
   while(1) {
     status = xQueueReceive(wifi_msg_queue, &msg, portMAX_DELAY);

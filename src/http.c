@@ -4,7 +4,6 @@
 #include "http.h"
 
 const static char http_200_hdr[] = "200 OK";
-
 static const char HTTP_TAG[] = "http_server";
 
 static httpd_handle_t httpd_handle = NULL;
@@ -50,7 +49,6 @@ void http_app_start()
 
 void http_app_stop()
 {
-
   if(httpd_handle) {
     httpd_stop(httpd_handle);
     httpd_handle = NULL;
