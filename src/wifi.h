@@ -1,13 +1,15 @@
 #ifndef WIFI_H
 #define WIFI_H
 
+#include "common.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #define WIFI_TAG               "WIFI"
 
-#define WIFI_LOG_LEVEL         1
+#define WIFI_LOG_LEVEL         LOG_LEVEL
 #define ESP_WIFI_DEBUG(...) \
   if(WIFI_LOG_LEVEL == 1) \
     ESP_LOGI(WIFI_TAG, __VA_ARGS__)

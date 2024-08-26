@@ -8,7 +8,6 @@
 #include <esp_wifi.h>
 #include <lwip/netdb.h>
 #include "wifi.h"
-#include "http.h"
 
 QueueHandle_t wifi_msg_queue;
 wifi_ap_record_t * ap_record;

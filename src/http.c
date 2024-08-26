@@ -10,7 +10,7 @@ static httpd_handle_t httpd_handle = NULL;
 
 static esp_err_t http_server_get_handler(httpd_req_t *req)
 {
-  ESP_LOGI(HTTP_TAG, "Entered http server get handler: %s", req->uri);
+  ESP_HTTP_DEBUG( "Entered http server get handler: %s", req->uri);
 
   httpd_resp_set_status(req, http_200_hdr);
   httpd_resp_set_type(req, "text/html");
@@ -36,11 +36,11 @@ void http_app_start()
     cfg.uri_match_fn = httpd_uri_match_wildcard;
     cfg.lru_purge_enable = false;
 
-    ESP_LOGI(HTTP_TAG, "Starting http server");
+    ESP_HTTP_DEBUG( "Starting http server");
     err = httpd_start(&httpd_handle, &cfg);
     if (err == ESP_OK) {
       httpd_register_uri_handler(httpd_handle, &http_server_get_request);
-      ESP_LOGI(HTTP_TAG, "Started http server");
+      ESP_HTTP_DEBUG( "Started http server");
     } else {
       ESP_LOGE(HTTP_TAG, "UNABLE TO START HTTP SERVER");
     }
