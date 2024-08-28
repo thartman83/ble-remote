@@ -23,7 +23,13 @@ void runTests() {
   UNITY_END();
 }
 
+#ifdef NATIVE
 int main() {
   runTests();
   return 0;
 }
+#else
+void app_main() {
+  runTests();
+}
+#endif//NATIVE

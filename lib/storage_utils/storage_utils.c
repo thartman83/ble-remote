@@ -1,9 +1,12 @@
+#include "storage_utils.h"
 #include <stdio.h>
-#include <esp_spiffs.h>
+#ifndef NATIVE
 #include <esp_log.h>
 #include <esp_err.h>
-#include "storage_utils.h"
+#include <esp_spiffs.h>
+#endif//NATIVE
 
+#ifndef NATIVE
 void init_storage_volume() {
   ESP_STORAGE_DEBUG("Entering init storage volume");
 
@@ -18,10 +21,11 @@ void init_storage_volume() {
 
   ESP_STORAGE_DEBUG("Leaving init storage volume");
 }
+#endif
 
 unsigned int read_file_chunk(FILE * fp, unsigned char * buf) {
-  ESP_STORAGE_DEBUG("Entering read_file_chunk");
+  //  ESP_STORAGE_DEBUG("Entering read_file_chunk");
   size_t read_len = fread(buf, FILE_CHUNK_SIZE, 1, fp);
-  ESP_STORAGE_DEBUG("Leaving read_file_chunk");
+  //ESP_STORAGE_DEBUG("Leaving read_file_chunk");
   return read_len;
 }
