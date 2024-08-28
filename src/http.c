@@ -1,6 +1,7 @@
 #include <esp_http_server.h>
 #include <esp_log.h>
 #include <esp_err.h>
+#include "content_type.h"
 #include "http.h"
 
 const static char http_200_hdr[] = "200 OK";
@@ -11,6 +12,8 @@ static httpd_handle_t httpd_handle = NULL;
 static esp_err_t http_server_get_handler(httpd_req_t *req)
 {
   ESP_HTTP_DEBUG( "Entered http server get handler: %s", req->uri);
+
+
 
   httpd_resp_set_status(req, http_200_hdr);
   httpd_resp_set_type(req, "text/html");

@@ -1,5 +1,17 @@
-#ifndef CONTENT_TYPE_H
-#define CONTENT_TYPE_H
+#ifndef URI_INFO_H
+#define URI_INFO_H
+
+#define MAX_EXT_LEN 10
+#define MAX_CONTENT_TYPE_LEN 255
+#define MAX_URI_PATH_LEN 255
+
+typedef struct {
+  char ext[MAX_EXT_LEN];
+  char content_type[MAX_CONTENT_TYPE_LEN];
+  char filelocation[MAX_URI_PATH_LEN];
+} uri_info_t;
+
+const static char index_html[] = "index.html";
 
 const static char js_ext[] = "js";
 const static char html_ext[] = "html";
@@ -14,6 +26,7 @@ const static char http_content_type_json[] = "application/json";
 const static char http_content_type_icon[] = "image/x-icon";
 const static char http_content_type_text[] = "text/text";
 
-const char * get_content_type(const char * uri);
+void uri_extension(const char * uri, char * ret);
+void decode_uri_info(const char * uri, uri_info_t * uri_info);
 
-#endif//CONTENT_TYPE_H
+#endif//URI_INFO_H
