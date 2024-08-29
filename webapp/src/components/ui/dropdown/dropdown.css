@@ -1,0 +1,23 @@
+.dropdown-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-group label {
+    text-align: left;
+    font-size: 1.25rem;
+    padding-right: 1rem;
+    padding-bottom: .25rem;
+}
+
+.dropdown-group select {
+    font-size: 1.25rem;
+    border-radius: 4px;
+    border-width: 2px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    min-width: 500px;
+    background-color: white;
+}

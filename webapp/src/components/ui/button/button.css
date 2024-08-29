@@ -1,0 +1,23 @@
+button.btn {
+    font-size: 1.25rem;
+    background-color: #ababab;
+}
+
+button.btn:hover {
+    border-color: #111111;
+}
+
+button.btn.btn-primary {
+    background-color: skyblue;
+    border-width: 1.5px;
+    border-color: black;
+    justify-self: right;
+    margin-right: auto;
+}
+
+button.btn.btn-secondary {
+    background-color: whitesmoke;
+    border-width: 1.5px;
+    border-color: black;
+    margin-left: auto;
+}

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src", "../../../.emacs.d/tmp/backups/!home!thartman!projects!ble-remote!webapp!src!components!ui!button!button.tsx~", "../../../.emacs.d/tmp/backups/!home!thartman!projects!ble-remote!webapp!src!components!ui!dropdown!dropdown.tsx~", "../../../.emacs.d/tmp/backups/!home!thartman!projects!ble-remote!webapp!src!components!ui!input!input.tsx~", "../../../.emacs.d/tmp/backups/!home!thartman!projects!ble-remote!webapp!src!components!ui!input.tsx~", "../../../.emacs.d/tmp/backups/!home!thartman!projects!ble-remote!webapp!src!App.tsx~"]
+}

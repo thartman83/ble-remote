@@ -1,0 +1,20 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    text-align: left;
+    font-size: 1.25rem;
+    padding-right: 1rem;
+    padding-bottom: .25rem;
+}
+
+.input-group input {
+    font-size: 1.25rem;
+    border-radius: 4px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: .5rem;
+    min-width: 500px;
+}
