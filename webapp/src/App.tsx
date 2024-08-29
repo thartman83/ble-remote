@@ -5,8 +5,8 @@ import Dropdown, { DropdownChangeEvent } from './components/ui/dropdown/dropdown
 import Button, { ButtonClickEvent, ButtonType } from './components/ui/button/button';
 
 function App() {
-  const [passwd, setPasswd] = useState<string>("");
-  const [wifi, setWifi] = useState<string>("");
+  const [, setPasswd] = useState<string>("");
+  const [, setWifi] = useState<string>("");
 
   const passwordChangeHandler = (e: InputChangeEvent) => {
     setPasswd(e.target.value);
