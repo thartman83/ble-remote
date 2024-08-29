@@ -4,6 +4,7 @@
 #define MAX_EXT_LEN 10
 #define MAX_CONTENT_TYPE_LEN 255
 #define MAX_URI_PATH_LEN 255
+#define BASE_PATH "/spiffs"
 
 typedef struct {
   char ext[MAX_EXT_LEN];
@@ -11,7 +12,7 @@ typedef struct {
   char filelocation[MAX_URI_PATH_LEN];
 } uri_info_t;
 
-const static char index_html[] = "index.html";
+const static char index_html[] = "/index.html";
 
 const static char js_ext[] = "js";
 const static char html_ext[] = "html";

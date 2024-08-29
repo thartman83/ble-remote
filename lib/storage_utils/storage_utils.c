@@ -24,8 +24,8 @@ void init_storage_volume() {
 #endif
 
 unsigned int read_file_chunk(FILE * fp, unsigned char * buf) {
-  //  ESP_STORAGE_DEBUG("Entering read_file_chunk");
+  ESP_STORAGE_DEBUG("Entering read_file_chunk");
   size_t read_len = fread(buf, FILE_CHUNK_SIZE, 1, fp);
-  //ESP_STORAGE_DEBUG("Leaving read_file_chunk");
+  ESP_STORAGE_DEBUG("Leaving read_file_chunk");
   return read_len;
 }

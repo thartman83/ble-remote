@@ -9,7 +9,7 @@
 #include <esp_spiffs.h>
 #endif//NATIVE
 
-#define FILE_CHUNK_SIZE 4096
+#define FILE_CHUNK_SIZE 512
 #define STORAGE_LOG_LEVEL LOG_LEVEL
 #define STORAGE_TAG "Storage"
 #define STORAGE_VOLUME_BASE_PATH "/spiffs"

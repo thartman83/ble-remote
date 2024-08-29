@@ -1,5 +1,6 @@
 #include <unity.h>
 #include <string.h>
+#include <stdio.h>
 #include <uri_info.h>
 
 void setupUp() {
@@ -10,9 +11,11 @@ void tearDown() {
 
 void test_decode_index_uri() {
   uri_info_t uri_info;
+  char expected_filelocation[MAX_URI_PATH_LEN];
+  sprintf(expected_filelocation,"%s%s", BASE_PATH, index_html);
 
   decode_uri_info("/", &uri_info);
-  TEST_ASSERT_EQUAL_STRING(index_html, uri_info.filelocation);
+  TEST_ASSERT_EQUAL_STRING(expected_filelocation, uri_info.filelocation);
   TEST_ASSERT_EQUAL_STRING(html_ext, uri_info.ext);
   TEST_ASSERT_EQUAL_STRING(http_content_type_html, uri_info.content_type);
 }
@@ -20,53 +23,59 @@ void test_decode_index_uri() {
 void test_decode_javascript_uri() {
   uri_info_t uri_info;
   const char path[] = "/src/foo.js";
+  char expected_filelocation[MAX_URI_PATH_LEN];
+  sprintf(expected_filelocation,"%s%s", BASE_PATH, path);
 
   decode_uri_info(path, &uri_info);
-  TEST_ASSERT_EQUAL_STRING(path, uri_info.filelocation);
+  TEST_ASSERT_EQUAL_STRING(expected_filelocation, uri_info.filelocation);
   TEST_ASSERT_EQUAL_STRING(js_ext, uri_info.ext);
   TEST_ASSERT_EQUAL_STRING(http_content_type_js, uri_info.content_type);
 }
 
 void test_decode_css_uri() {
   uri_info_t uri_info;
-
   const char path[] = "/css/foo.css";
+  char expected_filelocation[MAX_URI_PATH_LEN];
+  sprintf(expected_filelocation,"%s%s", BASE_PATH, path);
 
   decode_uri_info(path, &uri_info);
-  TEST_ASSERT_EQUAL_STRING(path, uri_info.filelocation);
+  TEST_ASSERT_EQUAL_STRING(expected_filelocation, uri_info.filelocation);
   TEST_ASSERT_EQUAL_STRING(css_ext, uri_info.ext);
   TEST_ASSERT_EQUAL_STRING(http_content_type_css, uri_info.content_type);
 }
 
 void test_decode_json_uri() {
   uri_info_t uri_info;
-
   const char path[] = "/data/important/bar.json";
+  char expected_filelocation[MAX_URI_PATH_LEN];
+  sprintf(expected_filelocation,"%s%s", BASE_PATH, path);
 
   decode_uri_info(path, &uri_info);
-  TEST_ASSERT_EQUAL_STRING(path, uri_info.filelocation);
+  TEST_ASSERT_EQUAL_STRING(expected_filelocation, uri_info.filelocation);
   TEST_ASSERT_EQUAL_STRING(json_ext, uri_info.ext);
   TEST_ASSERT_EQUAL_STRING(http_content_type_json, uri_info.content_type);
 }
 
 void test_decode_ico_uri() {
   uri_info_t uri_info;
-
   const char path[] = "/favicon.ico";
+  char expected_filelocation[MAX_URI_PATH_LEN];
+  sprintf(expected_filelocation,"%s%s", BASE_PATH, path);
 
   decode_uri_info(path, &uri_info);
-  TEST_ASSERT_EQUAL_STRING(path, uri_info.filelocation);
+  TEST_ASSERT_EQUAL_STRING(expected_filelocation, uri_info.filelocation);
   TEST_ASSERT_EQUAL_STRING(icon_ext, uri_info.ext);
   TEST_ASSERT_EQUAL_STRING(http_content_type_icon, uri_info.content_type);
 }
 
 void test_decode_fallback_uri() {
   uri_info_t uri_info;
-
   const char path[] = "/favtext.notanext";
+  char expected_filelocation[MAX_URI_PATH_LEN];
+  sprintf(expected_filelocation,"%s%s", BASE_PATH, path);
 
   decode_uri_info(path, &uri_info);
-  TEST_ASSERT_EQUAL_STRING(path, uri_info.filelocation);
+  TEST_ASSERT_EQUAL_STRING(expected_filelocation, uri_info.filelocation);
   TEST_ASSERT_EQUAL_STRING("notanext", uri_info.ext);
   TEST_ASSERT_EQUAL_STRING(http_content_type_text, uri_info.content_type);
 }

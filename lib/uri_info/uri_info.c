@@ -11,12 +11,12 @@ void decode_uri_info(const char * uri, uri_info_t * uri_info) {
   if(strcmp(uri, "/") == 0) {
     strcpy(uri_info->content_type, http_content_type_html);
     strcpy(uri_info->ext, html_ext);
-    strcpy(uri_info->filelocation, index_html);
+    sprintf(uri_info->filelocation, "%s%s", BASE_PATH, index_html);
     return;
   }
 
   // copy the file location
-  strcpy(uri_info->filelocation, uri);
+  sprintf(uri_info->filelocation, "%s%s", BASE_PATH, uri);
 
   // get the file extension
   uri_extension(uri, ext);
