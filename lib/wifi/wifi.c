@@ -100,6 +100,26 @@ void wifi_task_loop( void * params) {
 
   while(1) {
     status = xQueueReceive(wifi_msg_queue, &msg, portMAX_DELAY);
+
+    if(status != pdPASS)
+      continue;
+
+    switch (msg.code) {
+    case WIFI_TASK_SCAN_DONE:
+      ESP_WIFI_DEBUG("Scan complete");
+      wifi_event_sta_scan_done_t *evt_scan_done =
+        (wifi_event_sta_scan_done_t*)msg.param;
+
+      // scan did not complete successfully
+      if(evt_scan_done->status != 0) {
+        break;
+      }
+
+
+      break;
+    default:
+      break;
+    }
   }
 
   vTaskDelete(NULL);
