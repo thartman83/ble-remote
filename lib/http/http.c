@@ -5,10 +5,12 @@
 #include <sys/stat.h>
 #include <storage_utils.h>
 #include "http.h"
+#include "wifi.h"
 
 const static char http_200_hdr[] = "200 OK";
 static const char HTTP_TAG[] = "http_server";
-
+static const char STATUS_RESP_BASE_JSON[] = "{ mode: %d, ip_addr: '%s', "
+                                            "gw_addr: '%s', netmask: '%s'}";
 static httpd_handle_t httpd_handle = NULL;
 
 static esp_err_t http_server_get_handler(httpd_req_t *req)
@@ -74,6 +76,52 @@ static esp_err_t http_server_get_handler(httpd_req_t *req)
   return err;
 }
 
+static esp_err_t http_server_api_scan_handler(httpd_req_t *req) {
+  wifi_send_message(WIFI_REQ_SCAN, (void *)NULL);
+
+  char resp[] = "{status: 'Ok'}";
+
+  httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+  httpd_resp_set_status(req,http_200_hdr);
+  httpd_resp_set_type(req, http_content_type_json);
+  httpd_resp_send(req, resp, strlen(resp));
+
+  return ESP_OK;
+}
+
+static esp_err_t http_server_api_wifi_status_handler(httpd_req_t *req) {
+  char resp[128];
+  wifi_status_t wifi_status;
+  esp_err_t ret;
+
+  ret = get_wifi_status(&wifi_status);
+
+  if(ret != ESP_OK)
+    return ret;
+
+  sprintf(resp, STATUS_RESP_BASE_JSON, wifi_status.mode, wifi_status.ip_addr,
+          wifi_status.gw_addr, wifi_status.netmask);
+
+  httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+  httpd_resp_set_status(req,http_200_hdr);
+  httpd_resp_set_type(req, http_content_type_json);
+  httpd_resp_send(req, resp, strlen(resp));
+
+  return ESP_OK;
+}
+
+static const httpd_uri_t http_server_api_scan_wifi_request = {
+  .uri         = "/api/wifi/scan",
+  .method      = HTTP_GET,
+  .handler     = http_server_api_scan_handler
+};
+
+static const httpd_uri_t http_server_api_wifi_status = {
+  .uri         = "/api/wifi",
+  .method      = HTTP_GET,
+  .handler     = http_server_api_wifi_status_handler
+};
+
 static const httpd_uri_t http_server_get_request = {
     .uri       = "*",
     .method    = HTTP_GET,
@@ -84,24 +132,6 @@ void http_app_start()
 {
   esp_err_t err;
 
-  /* esp_vfs_spiffs_conf_t conf = {.base_path = "/spiffs", */
-  /*                               .partition_label = NULL, */
-  /*                               .max_files = 5, */
-  /*                               .format_if_mount_failed = true}; */
-
-  /* esp_err_t ret = esp_vfs_spiffs_register(&conf); */
-
-  /* if (ret != ESP_OK) { */
-  /*   ESP_LOGE("SPIFFS", "ERROR MOUNTING FILESYSTEM"); */
-  /*   return; */
-  /* } else { */
-  /*   ESP_LOGI("SPIFFS", "Filesystem mounted and ready"); */
-  /* } */
-
-  /* size_t total = 0, used = 0; */
-  /* ret = esp_spiffs_info(conf.partition_label, &total, &used); */
-  /* ESP_LOGI("SPIFFS", "Partition size: total: %d, used: %d", total, used); */
-
   if(httpd_handle == NULL) {
     httpd_config_t cfg = HTTPD_DEFAULT_CONFIG();
 
@@ -111,6 +141,8 @@ void http_app_start()
     ESP_HTTP_DEBUG( "Starting http server");
     err = httpd_start(&httpd_handle, &cfg);
     if (err == ESP_OK) {
+      httpd_register_uri_handler(httpd_handle, &http_server_api_scan_wifi_request);
+      httpd_register_uri_handler(httpd_handle, &http_server_api_wifi_status);
       httpd_register_uri_handler(httpd_handle, &http_server_get_request);
       ESP_HTTP_DEBUG( "Started http server");
     } else {
